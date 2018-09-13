@@ -1,0 +1,9 @@
+let controller ={};
+controller.getBook = (req,res)=>{};
+ controller.getBooks = (req,res)=>{};
+ controller.deleteBooks = (req,res)=>{};
+ controller.addBook = (req,res)=>{};
+ controller.updateBook = (req,res)=>{};
+ controller.deleteBook = (req,res)=>{};
+ controller.addComment = (req,res)=>{};
+module.exports =  controller;
