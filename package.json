@@ -7,14 +7,18 @@
   "description": "A simple Node app built on Express, instantly up and running.",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "mocha --timeout 10000"
   },
   "dependencies": {
+    "body-parser": "^1.18.3",
+    "chai": "^4.1.2",
+    "chai-http": "^4.2.0",
     "express": "^4.16.3",
     "helmet": "^3.13.0",
-    "mongoose": "^5.2.14",
     "lodash": "^4.17.11",
-    "body-parser": "^1.18.3"
+    "mocha": "^5.2.0",
+    "mongoose": "^5.2.14"
   },
   "engines": {
     "node": "8.x"

@@ -5,25 +5,37 @@
 var express = require('express');
 var app = express();
 var helmet = require('helmet');
-var controller=require('./controller.js');
+var controller = require('./controller.js');
 var bodyParser = require('body-parser');
+controller.connect();
+app.use(helmet.hidePoweredBy({
+  setTo: 'PHP 4.2.0'
+}));
 
-app.use(helmet.hidePoweredBy({ setTo: 'PHP 4.2.0' }))
-app.use(helmet.noCache())
+app.use(helmet.noCache());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
 app.use(express.static('public'));
 
-app.route('/api/book').get(controller.getBooks).put(controller.addBook).delete(controller.deleteBooks);
-app.route('/api/book/:_id').get(controller.getBook).put(controller.updateBook).delete(controller.deleteBook).post(controller.addComment);
+app.route('/api/book')
+  .get(controller.getBooks)
+  .post(controller.addBook)
+  .delete(controller.deleteBooks);
 
-app.get('/', function(request, response) {
+app.route('/api/book/:_id')
+  .get(controller.getBook)
+  .delete(controller.deleteBook)
+  .post(controller.addComment);
+
+app.get('/', function (request, response) {
 
 });
 
 // listen for requests :)
-var listener = app.listen(process.env.PORT, function() {
-  console.log('Your app is listening on port ' + listener.address().port);
+let port = process.env.PORT | 3000;
+var listener = app.listen(port, function () {
+  console.log('Your app is listening on port ' + port);
 });
+module.exports = app;
