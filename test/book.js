@@ -26,6 +26,8 @@ describe('/GET', () => {
                 res.should.have.status(200);
                 res.body.should.be.a('object');
                 res.body.should.have.property('title').eql(b.title);
+                res.body.should.have.property('comments');
+                res.body.comments.should.be.a('array');
                 done();
             });
         });
@@ -35,13 +37,10 @@ describe('/GET', () => {
 describe('/post', () => {
 
     it('should add a comment to a book', (done) => {
-
         var b = new Book(dummyData);
-
         let commentData = {
             comment: 'this is a comment!'
         }
-
         b.save(() => {
             commentData.book = b._id;
             chai.request(server).post(ROUTE + b._id).send(commentData).end((req, res) => {
@@ -55,9 +54,7 @@ describe('/post', () => {
 });
 
 describe('/DELETE', () => {
-
     it('should delete the book ', (done) => {
-
         let b = new Book(dummyData);
         b.save(() => {
             chai.request(server).delete(ROUTE + b._id).end((req, res) => {
